@@ -22,6 +22,7 @@ command P4edit call perforce#P4CallEdit()
 command P4revert call perforce#P4CallRevert()
 command P4movetocl call perforce#P4CallPromptMoveToChangelist()
 command P4diff call perforce#P4CallDiff()
+command P4opened call perforce#P4CallOpened()
 command P4changes call perforce#P4CallChanges()
 command P4clients call perforce#P4CallClients()
 
@@ -139,6 +140,14 @@ function! perforce#P4CallChanges()
   let user = perforce#P4GetUser()
   if !empty(user)
     let output = s:P4Shell('changes -u ' . user)
+    echo output
+  endif
+endfunction
+
+function! perforce#P4CallOpened()
+  let user = perforce#P4GetUser()
+  if !empty(user)
+    let output = s:P4Shell('opened')
     echo output
   endif
 endfunction
