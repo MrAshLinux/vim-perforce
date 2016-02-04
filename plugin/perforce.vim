@@ -138,7 +138,7 @@ endfunction
 function! perforce#P4CallChanges()
   let user = perforce#P4GetUser()
   if !empty(user)
-    let output = s:P4Shell('p4 changes -u ' . user)
+    let output = s:P4Shell('changes -u ' . user)
     echo output
   endif
 endfunction
@@ -146,7 +146,7 @@ endfunction
 function! perforce#P4CallClients()
   let user = perforce#P4GetUser()
   if !empty(user)
-    let output = s:P4Shell('p4 clients -u ' . user)
+    let output = s:P4Shell('clients -u ' . user)
     echo output
   endif
 endfunction
