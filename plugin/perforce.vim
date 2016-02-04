@@ -21,6 +21,9 @@ command P4info call perforce#P4CallInfo()
 command P4edit call perforce#P4CallEdit()
 command P4revert call perforce#P4CallRevert()
 command P4movetocl call perforce#P4CallPromptMoveToChangelist()
+command P4diff call perforce#P4CallDiff()
+command P4changes call perforce#P4CallChanges()
+command P4changes call perforce#P4CallClients()
 
 " Settings
 
@@ -130,6 +133,20 @@ function! perforce#P4GetUser()
   if len(m) > 1 && !empty(m[1])
     return m[1]
   endif
+endfunction
+
+function! perforce#P4CallChanges()
+  let user = perforce#P4GetUser()
+  if !empty(user)
+    let output = s:P4Shell('p4 changes -u ' . user)
+  echo output
+endfunction
+
+function! perforce#P4CallClients()
+  let user = perforce#P4GetUser()
+  if !empty(user)
+    let output = s:P4Shell('p4 clients -u ' . user)
+  echo output
 endfunction
 
 function! perforce#P4CallInfo()
@@ -306,4 +323,13 @@ function! perforce#P4CreateChangelist(description)
     return new_cl[1]
   endif
   return ''
+endfunction
+
+function! perforce#P4CallDiff()
+  let output = s:P4ShellCurrentBuffer('diff')
+  if v:shell_error != 0
+    call s:err('Unable to open diff file.')
+    return 1
+  endif
+  call s:msg(output)
 endfunction
