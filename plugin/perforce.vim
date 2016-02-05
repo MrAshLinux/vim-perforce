@@ -19,6 +19,7 @@ endif
 
 command P4info call perforce#P4CallInfo()
 command P4edit call perforce#P4CallEdit()
+command P4add call perforce#P4CallAdd()
 command P4revert call perforce#P4CallRevert()
 command P4movetocl call perforce#P4CallPromptMoveToChangelist()
 command P4diff call perforce#P4CallDiff()
@@ -192,6 +193,17 @@ function! perforce#P4CallEditWithPrompt()
     endif
   endif
 endfunction
+
+function! perforce#P4CallAdd()
+  let output = s:P4ShellCurrentBuffer('add')
+  if v:shell_error != 0
+    call s:err('Unable to add file to changelist.')
+    return 1
+  endif
+  silent! setlocal noreadonly autoread modifiable
+  call s:msg('File added to changelist.')
+endfunction
+
 
 function! perforce#P4CallEdit()
   let output = s:P4ShellCurrentBuffer('edit')
