@@ -366,4 +366,5 @@ function! perforce#P4CallDiff()
     return 1
   endif
   call s:msg(output)
+  return output
 endfunction
