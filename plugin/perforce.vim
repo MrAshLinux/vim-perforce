@@ -26,6 +26,7 @@ command P4diff call perforce#P4CallDiff()
 command P4opened call perforce#P4CallOpened()
 command P4changes call perforce#P4CallChanges()
 command P4clients call perforce#P4CallClients()
+command P4history call perforce#P4CallHistory()
 
 " Settings
 
@@ -346,6 +347,10 @@ function! perforce#P4CreateChangelist(description)
     return new_cl[1]
   endif
   return ''
+endfunction
+
+function! perforce#P4CallHistory()
+  let output = s:P4ShellCurrentBuffer('filelog')
 endfunction
 
 function! perforce#P4CallDiff()
