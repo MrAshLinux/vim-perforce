@@ -351,6 +351,12 @@ endfunction
 
 function! perforce#P4CallHistory()
   let output = s:P4ShellCurrentBuffer('filelog')
+  if v:shell_error != 0
+    call s:err('Unable to open filelog.')
+    return 1
+  endif
+  call s:msg(output)
+
 endfunction
 
 function! perforce#P4CallDiff()
